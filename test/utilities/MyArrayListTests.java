@@ -5,6 +5,10 @@ package utilities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.NoSuchElementException;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -12,6 +16,17 @@ import org.junit.jupiter.api.Test;
  *
  */
 class MyArrayListTests {
+	ListADT<String> list;
+
+	@BeforeEach
+	void setup() throws Exception {
+		list = new MyArrayList<>();
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		list = null;
+	}
 
 	/**
 	 * Test method for {@link utilities.MyArrayList#size()}.
@@ -121,8 +136,41 @@ class MyArrayListTests {
 	 * Test method for {@link utilities.MyArrayList#iterator()}.
 	 */
 	@Test
-	void testIterator() {
-		fail("Not yet implemented");
+	void testIteratorNonEmpty() {
+		list.add("A");
+		list.add("B");
+		list.add("C");
+
+		Iterator<String> it = list.iterator();
+		assertTrue(it.hasNext());
+
+		int i = 0;
+		while (it.hasNext()) {
+			assertEquals(list.get(i++), it.next());
+		}
+		assertFalse(it.hasNext());
+		try {
+			it.hasNext();
+			fail("No Such Element Exception");
+		} catch (NoSuchElementException e) {
+			assertTrue(true);
+		}
+
+	}
+
+	/**
+	 * Test method for {@link utilities.MyArrayList#iterator()}.
+	 */
+	@Test
+	void testIteratorEmpty() {
+		Iterator<String> it = list.iterator();
+		assertFalse(it.hasNext());
+		try {
+			it.hasNext();
+			fail("No Such Element Exception");
+		} catch (NoSuchElementException e) {
+			assertTrue(true);
+		}
 	}
 
 }

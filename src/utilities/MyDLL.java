@@ -1,13 +1,6 @@
 package utilities;
 
-public class MyArrayList<E> implements ListADT<E> {
-
-	private E[] array = null;
-	private int size;
-
-	public MyArrayList() {
-		array = (E[]) new Object[10];
-	}
+public class MyDLL<E> implements ListADT<E> {
 
 	@Override
 	public int size() {
@@ -18,7 +11,7 @@ public class MyArrayList<E> implements ListADT<E> {
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -52,7 +45,7 @@ public class MyArrayList<E> implements ListADT<E> {
 	}
 
 	@Override
-	public E remove(Object toRemove) throws NullPointerException {
+	public E remove(E toRemove) throws NullPointerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -90,7 +83,7 @@ public class MyArrayList<E> implements ListADT<E> {
 	@Override
 	public Iterator<E> iterator() {
 		// TODO Auto-generated method stub
-		return new MyArrayListIterator();
+		return null;
 	}
 
 }
