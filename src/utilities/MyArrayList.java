@@ -1,5 +1,7 @@
 package utilities;
 
+import java.util.NoSuchElementException;
+
 public class MyArrayList<E> implements ListADT<E> {
 
 	private E[] array = null;
@@ -91,6 +93,27 @@ public class MyArrayList<E> implements ListADT<E> {
 	public Iterator<E> iterator() {
 		// TODO Auto-generated method stub
 		return new MyArrayListIterator();
+	}
+
+	private class MyArrayListIterator implements Iterator {
+		private int pos;
+		private int size;
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return pos < size;
+		}
+
+		@Override
+		public E next() throws NoSuchElementException {
+			if (pos >= size) {
+				throw new NoSuchElementException();
+			}
+			E toReturn = array[pos++];
+			return toReturn;
+		}
+
 	}
 
 }
