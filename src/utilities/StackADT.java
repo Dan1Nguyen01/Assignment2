@@ -1,6 +1,8 @@
 package utilities;
 
-public interface StackADT<E> {
+import java.io.Serializable;
+
+public interface StackADT<E> extends Serializable {
 
 	public void Stack(int i);
 

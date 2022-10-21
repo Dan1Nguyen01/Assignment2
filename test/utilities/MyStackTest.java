@@ -3,6 +3,7 @@
  */
 package utilities;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
@@ -10,16 +11,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author dannguyen
+ * @author Dan Nguyen
+ * @param <E>
  *
  */
-class MyStackTest {
+class MyStackTest<E> {
+	private StackADT<E> stack;
+	private MyStack myStack;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
+		this.stack = new MyStack<>();
+		this.myStack = new MyStack();
 	}
 
 	/**
@@ -27,14 +33,21 @@ class MyStackTest {
 	 */
 	@AfterEach
 	void tearDown() throws Exception {
+		stack = null;
 	}
 
 	/**
-	 * Test method for {@link utilities.MyStack#Stack()}.
+	 * Test method for {@link utilities.MyStack#Stack(int)}.
 	 */
 	@Test
 	void testStack() {
-		fail("Not yet implemented");
+		int capacity = 10;
+		int size = 0;
+		myStack.Stack(capacity);
+
+		assertEquals(10, myStack.getCapacity());
+		assertEquals(size, myStack.getSize());
+
 	}
 
 	/**
@@ -54,7 +67,7 @@ class MyStackTest {
 	}
 
 	/**
-	 * Test method for {@link utilities.MyStack#peek(java.lang.Object)}.
+	 * Test method for {@link utilities.MyStack#peek()}.
 	 */
 	@Test
 	void testPeek() {
@@ -106,7 +119,16 @@ class MyStackTest {
 	 */
 	@Test
 	void testContains() {
-		fail("Not yet implemented");
+
+		int capacity = 10;
+		int size = 0;
+
+		Object test = new Object();
+		myStack.Stack(capacity);
+		myStack.push(test);
+		
+		assertTrue(myStack.contains(test));
+
 	}
 
 	/**
@@ -114,7 +136,10 @@ class MyStackTest {
 	 */
 	@Test
 	void testSize() {
-		fail("Not yet implemented");
+		int capacity = 10;
+		int size = 0;
+		myStack.Stack(capacity);
+		assertEquals(size, myStack.getSize());
 	}
 
 	/**
@@ -122,7 +147,8 @@ class MyStackTest {
 	 */
 	@Test
 	void testIsEmpty() {
-		fail("Not yet implemented");
+		assertTrue(myStack.isEmpty());
+		assertEquals(0, this.myStack.getSize());
 	}
 
 	/**
@@ -130,7 +156,37 @@ class MyStackTest {
 	 */
 	@Test
 	void testClear() {
-		fail("Not yet implemented");
+		int capacity = 10;
+		int size = 0;
+		myStack.Stack(capacity);
+
+		assertEquals(size, 0);
+
+	}
+
+	/**
+	 * Test method for {@link utilities.MyStack#getCapacity()}.
+	 */
+	@Test
+	void testGetCapacity() {
+		int capacity = 10;
+		int size = 0;
+		myStack.Stack(capacity);
+
+		assertEquals(capacity, myStack.getCapacity());
+
+	}
+
+	/**
+	 * Test method for {@link utilities.MyStack#getSize()}.
+	 */
+	@Test
+	void testGetSize() {
+		int capacity = 10;
+		int size = 0;
+		myStack.Stack(capacity);
+
+		assertEquals(size, myStack.getSize());
 	}
 
 }

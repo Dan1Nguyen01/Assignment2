@@ -4,10 +4,16 @@ import java.util.NoSuchElementException;
 
 public class MyStack<E> implements StackADT<E> {
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 733021355610782032L;
 	private int capacity;
 	private E[] data = null;
 	private int size;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void Stack(int capacity) {
 		this.capacity = capacity;
