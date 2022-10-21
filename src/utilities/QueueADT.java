@@ -1,6 +1,8 @@
 package utilities;
 
-public interface QueueADT<E> {
+import java.io.Serializable;
+
+public interface QueueADT<E> extends Serializable {
 
 	// array based && LinkedList based
 

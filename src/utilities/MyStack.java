@@ -4,7 +4,6 @@ import java.util.NoSuchElementException;
 
 public class MyStack<E> implements StackADT<E> {
 
-	
 	/**
 	 * 
 	 */
@@ -26,24 +25,25 @@ public class MyStack<E> implements StackADT<E> {
 	public E push(E element) throws NullPointerException {
 		if (size == capacity) {
 			System.out.println("Stack is full");
-		} else {
+		} else
 			size++;
-			data[size - 1] = element;
-			System.out.println(element + " was added to the top of the stack");
-		}
+		data[size - 1] = element;
+		System.out.println(element + " was added to the top of the stack");
 
-		return element;
+		return data[size - 1];
 	}
 
 	@Override
-	public E pop(E element) throws NullPointerException {
+	public E pop() throws NullPointerException {
+
 		if (size == 0) {
 			System.out.println("The stack is empty");
-		} else {
+		} else
 
 			size--;
-			System.out.println(element + " was removed from the topmost of the stack");
-		}
+		E element = data[size];
+		System.out.println(element + " The topmost element was removed from  the stack");
+
 		return element;
 	}
 

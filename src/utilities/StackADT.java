@@ -28,7 +28,7 @@ public interface StackADT<E> extends Serializable {
 	 *                              having <code>null</code> elements.
 	 * 
 	 */
-	public E pop(E element) throws NullPointerException;
+	public E pop() throws NullPointerException;
 
 	/**
 	 * Access the specified element at the topmost in this list without removing the

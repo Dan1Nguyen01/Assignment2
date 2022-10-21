@@ -6,6 +6,8 @@ package utilities;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,7 +57,13 @@ class MyStackTest<E> {
 	 */
 	@Test
 	void testPush() {
-		fail("Not yet implemented");
+		myStack.Stack(10);
+		myStack.push(10);
+		assertEquals(myStack.peek(), 10);
+		myStack.pop();
+		myStack.push(30);
+		assertEquals(myStack.peek(), 30);
+
 	}
 
 	/**
@@ -63,7 +71,14 @@ class MyStackTest<E> {
 	 */
 	@Test
 	void testPop() {
-		fail("Not yet implemented");
+		myStack.Stack(10);
+		myStack.push(10);
+		myStack.push(20);
+		myStack.push(30);
+		myStack.pop();
+		assertEquals(myStack.peek(), 20);
+		myStack.pop();
+		assertEquals(myStack.pop(), 10);
 	}
 
 	/**
@@ -71,7 +86,14 @@ class MyStackTest<E> {
 	 */
 	@Test
 	void testPeek() {
-		fail("Not yet implemented");
+		myStack.Stack(10);
+		myStack.push(10);
+		myStack.push(20);
+		myStack.push(30);
+
+		assertEquals(myStack.peek(), 30);
+		myStack.pop();
+		assertEquals(myStack.peek(), 20);
 	}
 
 	/**
@@ -81,13 +103,27 @@ class MyStackTest<E> {
 	void testEqualsStackADTOfE() {
 		fail("Not yet implemented");
 	}
+	
 
 	/**
 	 * Test method for {@link utilities.MyStack#iterator()}.
 	 */
 	@Test
-	void testIterator() {
-		fail("Not yet implemented");
+	void testIteratorEmpty() {
+		Iterator<E> it = stack.iterator();
+		assertFalse(it.hasNext());
+		try {
+			it.hasNext();
+			fail("No Such Element Exception");
+		}catch(NoSuchElementException e ) {
+			assertTrue(true);
+		}
+	}
+
+	@Test
+	void testIteratorNotEmptu() {
+		
+		stack.push(1);
 	}
 
 	/**
@@ -126,7 +162,7 @@ class MyStackTest<E> {
 		Object test = new Object();
 		myStack.Stack(capacity);
 		myStack.push(test);
-		
+
 		assertTrue(myStack.contains(test));
 
 	}
