@@ -1,5 +1,6 @@
 package utilities;
 
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
 public class MyArrayList<E> implements ListADT<E> {
@@ -17,19 +18,32 @@ public class MyArrayList<E> implements ListADT<E> {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		array = null;
 
 	}
 
 	@Override
 	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		if (array == null) {
+			throw new NullPointerException();
+		}
+		if (size < array.length) {
+			for (int i = size - 1; i > 0; i--) {
+				array[i + 1] = array[i];
+			}
+			array[index] = toAdd;
+
+			size++;
+			return true;
+		}
 		return false;
 	}
 
@@ -59,32 +73,69 @@ public class MyArrayList<E> implements ListADT<E> {
 
 	@Override
 	public E remove(Object toRemove) throws NullPointerException {
-		// TODO Auto-generated method stub
+		if (array == null) {
+			throw new NullPointerException();
+		}
+		for (int i = 0; i < size; i++) {
+			if (array[i] == toRemove) {
+				array[i] = array[i + 1];
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public E set(int index, E toChange) throws NullPointerException, IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return null;
+		if (array == null) {
+			throw new NullPointerException();
+		}
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException();
+
+		}
+		if (array != null) {
+			array[index] = toChange;
+		}
+		return array[index];
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		if (array != null) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean contains(E toFind) throws NullPointerException {
-		// TODO Auto-generated method stub
+
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == toFind) {
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public E[] toArray(E[] toHold) throws NullPointerException {
-		// TODO Auto-generated method stub
-		return null;
+		if (toHold == null) {
+			throw new NullPointerException();
+		}
+		if (toHold.length < size) {
+			// if the array is too small, allocate the new array the same component type
+			toHold = (E[]) Array.newInstance(getClass().getComponentType(), size);
+		} else if (toHold.length > size) {
+			toHold[size] = null;
+		}
+		int i = 0;
+		for (E element : toHold) {
+			toHold[i] = element;
+			i++;
+
+		}
+		return toHold;
 	}
 
 	@Override

@@ -4,6 +4,7 @@
 package utilities;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.NoSuchElementException;
@@ -103,7 +104,6 @@ class MyStackTest<E> {
 	void testEqualsStackADTOfE() {
 		fail("Not yet implemented");
 	}
-	
 
 	/**
 	 * Test method for {@link utilities.MyStack#iterator()}.
@@ -115,15 +115,34 @@ class MyStackTest<E> {
 		try {
 			it.hasNext();
 			fail("No Such Element Exception");
-		}catch(NoSuchElementException e ) {
+		} catch (NoSuchElementException e) {
 			assertTrue(true);
 		}
 	}
 
 	@Test
-	void testIteratorNotEmptu() {
-		
-		stack.push(1);
+	void testIteratorNotEmpty() {
+		myStack.Stack(10);
+
+		myStack.push(60);
+		myStack.push(30);
+
+		Iterator it = stack.iterator();
+
+		int i = 0;
+		while (it.hasNext()) {
+			assertEquals(myStack.peek(), it.next());
+			myStack.pop();
+
+		}
+//		assertFalse(it.hasNext());
+		try {
+			it.hasNext();
+			fail("No Such Element Exception");
+		} catch (NoSuchElementException e) {
+			assertTrue(true);
+		}
+
 	}
 
 	/**
@@ -147,7 +166,12 @@ class MyStackTest<E> {
 	 */
 	@Test
 	void testSearch() {
-		fail("Not yet implemented");
+		myStack.Stack(10);
+		myStack.push(10);
+		myStack.push(20);
+		
+		assertEquals(myStack.search(10),0);
+		
 	}
 
 	/**

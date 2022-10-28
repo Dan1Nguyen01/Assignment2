@@ -22,7 +22,7 @@ public class MyStack<E> implements StackADT<E> {
 	}
 
 	@Override
-	public E push(E element) throws NullPointerException {
+	public void push(E element) throws NullPointerException {
 		if (size == capacity) {
 			System.out.println("Stack is full");
 		} else
@@ -30,7 +30,6 @@ public class MyStack<E> implements StackADT<E> {
 		data[size - 1] = element;
 		System.out.println(element + " was added to the top of the stack");
 
-		return data[size - 1];
 	}
 
 	@Override

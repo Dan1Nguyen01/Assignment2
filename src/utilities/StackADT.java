@@ -16,16 +16,16 @@ public interface StackADT<E> extends Serializable {
 	 *                              having <code>null</code> elements.
 	 * 
 	 */
-	public E push(E element) throws NullPointerException;
+	public void push(E element) throws NullPointerException;
 
 	/**
 	 * Remove the specified element at the top in this list.
 	 * 
 	 * @param element Remove the element from the topmost of the list.
-	 * @return a stack that removed a element.
-	 * @throws NullPointerException If the specified element is <code>null</code>
-	 *                              and the list implementation does not support
-	 *                              having <code>null</code> elements.
+	 * 
+	 * @throws NullPointerException If the specified element is null and the list
+	 *                              implementation does not support having
+	 *                              <code>null</code> elements.
 	 * 
 	 */
 	public E pop() throws NullPointerException;
@@ -36,9 +36,9 @@ public interface StackADT<E> extends Serializable {
 	 * 
 	 * @param element Access the element from the topmost of the list.
 	 * @return a stack that a element.
-	 * @throws NullPointerException If the specified element is <code>null</code>
-	 *                              and the list implementation does not support
-	 *                              having <code>null</code> elements.
+	 * @throws NullPointerException If the specified element is null and the list
+	 *                              implementation does not support having null
+	 *                              elements.
 	 * 
 	 */
 	public E peek() throws NullPointerException;
@@ -66,15 +66,15 @@ public interface StackADT<E> extends Serializable {
 	 * Returns an iterator over the elements in this list, in proper sequence.
 	 * 
 	 * @return An iterator over the elements in this list, in proper sequence. NB:
-	 *         The return is of type <code>linearUtilities.Iterator<E></code>, not
-	 *         <code>java.util.Iterator</code>.
+	 *         The return is of type , not
+	 * 
 	 */
 	public Iterator<E> iterator();
 
 	/**
-	 * Returns an array containing all of the elements in this list in proper
+	 * Returns an array containing all of the elements in this stack in proper
 	 * sequence. Obeys the general contract of the
-	 * <code>java.util.Collection.toArray()</code> method.
+	 * 
 	 * 
 	 * @return An array containing all of the elements in this list in proper
 	 *         sequence.
@@ -85,26 +85,25 @@ public interface StackADT<E> extends Serializable {
 	 * Returns an array containing all of the elements in this list in proper
 	 * sequence; the runtime type of the returned array is that of the specified
 	 * array. Obeys the general contract of the
-	 * <code>java.util.Collection.toArray(Object [])</code> method.
+	 * 
 	 * 
 	 * @param toHold The array into which the elements of this list are to be
 	 *               stored, if it is big enough; otherwise, a new array of the same
 	 *               runtime type is allocated for this purpose.
 	 * @return An array containing the elements of this list.
-	 * @throws NullPointerException If the specified array is <code>null</code>.
+	 * @throws NullPointerException If the specified array is null.
 	 */
 	public E[] toArray(E[] copy) throws NullPointerException;
 
 	/**
 	 * Returns true if this list contains the specified element. More formally,
-	 * returns true if and only if this list contains at least one element
-	 * <code>e</code> such that <code>toFind.equals(e)</code>.
+	 * returns true if and only if this list contains at least one element e.
 	 * 
 	 * @param toFind The element whose presence in this list is to be tested.
 	 * @return <code>true</code> if this list contains the specified element.
-	 * @throws NullPointerException If the specified element is <code>null</code>
-	 *                              and the list implementation does not support
-	 *                              having <code>null</code> elements.
+	 * @throws NullPointerException If the specified element is null and the list
+	 *                              implementation does not support having null
+	 *                              elements.
 	 */
 	public boolean contains(E obj) throws NullPointerException;
 
