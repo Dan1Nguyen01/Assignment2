@@ -1,17 +1,22 @@
 package utilities;
 
+import java.util.NoSuchElementException;
+
 public class MyDLL<E> implements ListADT<E> {
+	private int size;
+	private Node head;
+	private Node tail;
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		head = tail = null;
+		size = 0;
+
 	}
 
 	@Override
@@ -83,7 +88,28 @@ public class MyDLL<E> implements ListADT<E> {
 	@Override
 	public Iterator<E> iterator() {
 		// TODO Auto-generated method stub
-		return null;
+		return new myNewIterator();
+	}
+
+	public class myNewIterator implements Iterator {
+		private int pos;
+		private int size;
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return pos < size;
+		}
+
+		@Override
+		public Object next() throws NoSuchElementException {
+			if (pos >= size) {
+				throw new NoSuchElementException();
+			}
+//			E toReturn = array[pos++]; not sure if we need to have an array here???
+			return null;
+		}
+
 	}
 
 }

@@ -140,8 +140,15 @@ public class MyArrayList<E> implements ListADT<E> {
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+
+		Object[] newArray = new Object[array.length];
+
+		for (int i = 0; i < newArray.length; i++) {
+
+			newArray[i] = array[i];
+		}
+
+		return newArray;
 	}
 
 	@Override
