@@ -45,14 +45,41 @@ public class MyDLL<E> implements ListADT<E> {
 
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return null;
+		Node temp1 = head;
+		Node temp2 = null;
+		if (index == 0) {
+			head = head.getNext();
+		} else if (index > size) {
+			throw new IndexOutOfBoundsException(
+					"The position [ " + index + " ] is greater than the current size " + size + ".");
+		} else {
+			
+			
+			for (int i =0; i< index-1; i++) {
+				temp1 = temp1.getNext();
+			}
+			temp2 = temp1.getNext();
+			temp1.setNext(temp2.getNext());
+			size--;
+		}
+		return (E) temp2;
 	}
 
 	@Override
 	public E remove(E toRemove) throws NullPointerException {
-		// TODO Auto-generated method stub
-		return null;
+		Node node = head;
+		while (node != null) {
+			node = node.getNext();
+			
+			if(node.equals(toRemove)) {
+				Node node2 = node;
+				node.setNext(node2.getNext());
+				size--;
+			}else {
+				return null;
+			}
+		}
+		return (E) node;// check this
 	}
 
 	@Override
@@ -63,13 +90,24 @@ public class MyDLL<E> implements ListADT<E> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
+		if (head == null) {
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean contains(E toFind) throws NullPointerException {
-		// TODO Auto-generated method stub
+		Node node = head;
+		while (node != null) {
+			node = node.getNext();
+
+			if (node.getData().equals(toFind)) {
+				return true;
+			} else {
+				node = node.getNext();
+			}
+		}
 		return false;
 	}
 
