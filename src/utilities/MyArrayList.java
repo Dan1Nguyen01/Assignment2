@@ -49,7 +49,15 @@ public class MyArrayList<E> implements ListADT<E> {
 
 	@Override
 	public boolean add(E toAdd) throws NullPointerException {
-		// TODO Auto-generated method stub
+		if (array == null) {
+			throw new NullPointerException();
+		}
+
+		if (size < array.length) {
+			add(size - 1, toAdd);
+			size++;
+			return true;
+		}
 		return false;
 	}
 
@@ -61,8 +69,10 @@ public class MyArrayList<E> implements ListADT<E> {
 
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return null;
+		if (index > array.length && index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		return array[index];
 	}
 
 	@Override
