@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 public class MyDLL<E> implements ListADT<E> {
 	private int size;
 	private Node head;
-	private Node tail;
+	private Node one = null;
 
 	@Override
 	public int size() {
@@ -14,14 +14,15 @@ public class MyDLL<E> implements ListADT<E> {
 
 	@Override
 	public void clear() {
-		head = tail = null;
+		head  = null;
 		size = 0;
 
 	}
 
 	@Override
 	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
+		
+		Node node = new Node();
 		return false;
 	}
 

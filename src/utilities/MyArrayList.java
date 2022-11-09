@@ -173,7 +173,6 @@ public class MyArrayList<E> implements ListADT<E> {
 
 		@Override
 		public boolean hasNext() {
-			// TODO Auto-generated method stub
 			return pos < size;
 		}
 
