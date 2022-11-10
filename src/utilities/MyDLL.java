@@ -1,11 +1,13 @@
 package utilities;
 
+import java.lang.reflect.Array;
 import java.util.NoSuchElementException;
 
 public class MyDLL<E> implements ListADT<E> {
 	private int size;
 	private Node head;
-	private Node one = null;
+	private Node tail;
+	private E[] temp;
 
 	@Override
 	public int size() {
@@ -14,21 +16,69 @@ public class MyDLL<E> implements ListADT<E> {
 
 	@Override
 	public void clear() {
-		head  = null;
+		head = tail = null;
 		size = 0;
 
 	}
 
 	@Override
 	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException {
-		
-		Node node = new Node();
-		return false;
+
+		Node newNode = new Node(toAdd);
+		// check if the is out of bounds
+		Node node = head;
+		if (index < size) {
+
+			if (isEmpty()) {
+				head = tail = node;
+				return true;
+
+			}
+
+			for (int i = 0; i < size; i++) {
+
+				if (i == index) {
+					newNode.setNext(node);
+					newNode.setPrev(node.getPrev());
+
+					node.getPrev().setNext(newNode);
+					node.setPrev(newNode);
+
+				} else {
+					node = node.getNext();
+				}
+			}
+			size++;
+			return true;
+
+		} else
+
+		{
+			throw new IndexOutOfBoundsException();
+
+		}
 	}
 
 	@Override
 	public boolean add(E toAdd) throws NullPointerException {
-		// TODO Auto-generated method stub
+		Node node = new Node(toAdd);
+		// if the list is empty
+		if (isEmpty()) {
+			head = tail = node;
+			size++;
+			return true;
+
+		} else if (!isEmpty()) { // if the list is not empty
+			tail.setNext(node);
+
+			node.setPrev(tail);
+
+			tail = node;
+			tail.setNext(null);
+			size++;
+			return true;
+		}
+
 		return false;
 	}
 
@@ -40,30 +90,56 @@ public class MyDLL<E> implements ListADT<E> {
 
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		Node current = head;
+		if (isEmpty()) {
+			return null;
+		}
+
+		for (int i = 0; i < index; i++) {
+			current = current.getNext();
+		}
+
+		return (E) current.getData();
 	}
 
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
-		Node temp1 = head;
-		Node temp2 = null;
-		if (index == 0) {
-			head = head.getNext();
-		} else if (index > size) {
+
+		if (index > size || index < 0) {
 			throw new IndexOutOfBoundsException(
 					"The position [ " + index + " ] is greater than the current size " + size + ".");
-		} else {
-			
-			
-			for (int i =0; i< index-1; i++) {
-				temp1 = temp1.getNext();
-			}
-			temp2 = temp1.getNext();
-			temp1.setNext(temp2.getNext());
-			size--;
 		}
-		return (E) temp2;
+
+		Node node = null;
+		if (size == 1) {// only 1 element
+			node = (Node) head.getData();
+			clear();
+		} else if (index == 0) {// delete first
+			node = (Node) head.getData();
+			head = head.getNext();
+			head.setPrev(null);
+		} else if (index == size - 1) {// delete last
+			node = tail;
+			tail.setPrev(null);
+
+		} else {
+			int i = 0;
+			node = head;
+			while (i < index) {
+				node = node.getNext();
+			}
+
+			node.getPrev().setNext(node.getNext());
+			node.getNext().setPrev(node.getPrev());
+		}
+
+		size--;
+		return (E) node;
 	}
 
 	@Override
@@ -71,12 +147,12 @@ public class MyDLL<E> implements ListADT<E> {
 		Node node = head;
 		while (node != null) {
 			node = node.getNext();
-			
-			if(node.equals(toRemove)) {
-				Node node2 = node;
-				node.setNext(node2.getNext());
+
+			if (node.equals(toRemove)) {
+				node.getPrev().setNext(node.getNext());
+				node.getNext().setPrev(node.getPrev());
 				size--;
-			}else {
+			} else {
 				return null;
 			}
 		}
@@ -85,7 +161,8 @@ public class MyDLL<E> implements ListADT<E> {
 
 	@Override
 	public E set(int index, E toChange) throws NullPointerException, IndexOutOfBoundsException {
-		// TODO Auto-generated method stub
+		Node newNode = head;
+		Node node = new Node(toChange);
 		return null;
 	}
 
@@ -99,14 +176,14 @@ public class MyDLL<E> implements ListADT<E> {
 
 	@Override
 	public boolean contains(E toFind) throws NullPointerException {
-		Node node = head;
-		while (node != null) {
-			node = node.getNext();
-
-			if (node.getData().equals(toFind)) {
-				return true;
-			} else {
-				node = node.getNext();
+		Node current = head;
+		if (head != null) {
+			while (current != null) {
+				if (current.getData().equals(toFind)) {
+					return true;
+				} else {
+					current = current.getNext();
+				}
 			}
 		}
 		return false;
@@ -114,14 +191,43 @@ public class MyDLL<E> implements ListADT<E> {
 
 	@Override
 	public E[] toArray(E[] toHold) throws NullPointerException {
-		// TODO Auto-generated method stub
-		return null;
+		if (toHold == null) {
+			throw new NullPointerException();
+		}
+		if (toHold.length < size) {
+			// if the array is too small, allocate the new array the same component type
+			toHold = (E[]) Array.newInstance(getClass().getComponentType(), size);
+		} else if (toHold.length > size) {
+			toHold[size] = null;
+		}
+		int i = 0;
+		for (E element : toHold) {
+			toHold[i] = element;
+			i++;
+
+		}
+		return toHold;
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+
+		Node node = head;
+
+		Object[] temp = new Object[size];
+
+		Class<?> c1 = temp.getClass().getComponentType();
+
+		E[] newArray = (E[]) Array.newInstance(c1, size);
+
+		if (size > 0) {
+			for (int i = 0; i < size; i++) {
+				newArray[i] = (E) node.getData();
+				node = node.getNext();
+			}
+
+		}
+		return newArray;
 	}
 
 	@Override
@@ -145,8 +251,8 @@ public class MyDLL<E> implements ListADT<E> {
 			if (pos >= size) {
 				throw new NoSuchElementException();
 			}
-//			E toReturn = array[pos++]; not sure if we need to have an array here???
-			return null;
+			E toReturn = temp[pos++];
+			return toReturn;
 		}
 
 	}
